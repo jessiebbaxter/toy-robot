@@ -3,7 +3,6 @@
  # - co-ordinates everything to complete the user action
  
 require_relative 'view'
-require 'pry'
 
 class Controller
 
@@ -27,7 +26,7 @@ class Controller
 			when "west" then (@toy_robot.position_x -= 1)
 			end
 		else
-			#TODO: raise error
+			View.new.error("Oops, you need to PLACE")
 		end
 	end
 
@@ -51,7 +50,7 @@ class Controller
 					@toy_robot.facing = "north"
 			end
 		else
-			#TODO: raise error
+			View.new.error("Oops, you need to PLACE")
 		end
 	end
 
@@ -69,7 +68,7 @@ class Controller
 		if is_integer?(x) && is_integer?(y) && valid_directions.include?(f.downcase)
 			place(x.to_i,y.to_i,f)
 		else
-			View.new.invalid_place_details(response)
+			View.new.error("Oops, '#{response}' is an invalid place command")
 		end
 	end
 

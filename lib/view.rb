@@ -13,8 +13,8 @@ class View
 		response = gets.chomp
 	end
 
-	def invalid_place_details(response)
-		puts "Oops, '#{response}' is an invalid place command"
+	def error(error_message)
+		puts "#{error_message}"
 		puts ""
 	end
 end
