@@ -8,10 +8,11 @@ class Router
 
   def run
     puts "Welcome to your Toy Robot Simulator!"
-    puts "           --           "
-
+    puts "           ----           "
+    puts ""
     while @running
       display_commands
+      print "> "
       action = gets.chomp.to_i
       print `clear`
       route_action(action)
@@ -38,7 +39,6 @@ class Router
   end
 
   def display_commands
-    puts ""
     puts "What would you like to do next?"
     puts "1 - PLACE"
     puts "2 - MOVE"
@@ -46,5 +46,6 @@ class Router
     puts "4 - RIGHT"
     puts "5 - REPORT"
     puts "0 - EXIT"
+    puts ""
   end
 end

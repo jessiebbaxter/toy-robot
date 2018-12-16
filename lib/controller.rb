@@ -4,7 +4,7 @@
  
 require_relative 'view'
 
-class ToyRobotController
+class Controller
 
 	def initialize(toy_robot)
 		@toy_robot = toy_robot
@@ -50,6 +50,23 @@ class ToyRobotController
 	def report
 		toy_robot = @toy_robot
 		View.new.display(toy_robot)
+	end
+
+	def place_details
+		response = View.new.ask_for_place_details
+		x = response.split(",")[0]
+		y = response.split(",")[1]
+		f = response.split(",")[2]
+		valid_directions = %w(north east south west)
+		if is_integer?(x) && is_integer?(y) && valid_directions.include?(f.downcase)
+			place(x.to_i,y.to_i,f)
+		else
+			View.new.invalid_place_details(response)
+		end
+	end
+
+	def is_integer?(int)
+		int.to_i.to_s == int
 	end
 
 	def valid_command?
