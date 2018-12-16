@@ -29,7 +29,7 @@ class Router
     when 5 then @controller.report
     when 0 then stop
     else
-      puts "Please press 1, 2, 3, 4, 5 or 0"
+      puts "Please enter 1, 2, 3, 4, 5 or 0"
     end
   end
 
