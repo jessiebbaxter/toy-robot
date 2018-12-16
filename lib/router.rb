@@ -22,7 +22,7 @@ class Router
 
   def route_action(action)
     case action
-    when 1 then @controller.place
+    when 1 then @controller.place_details
     when 2 then @controller.move
     when 3 then @controller.rotate("left")
     when 4 then @controller.rotate("right")
