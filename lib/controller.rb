@@ -3,6 +3,7 @@
  # - co-ordinates everything to complete the user action
  
 require_relative 'view'
+require 'pry'
 
 class Controller
 
@@ -32,15 +33,22 @@ class Controller
 
 	def rotate(direction)
 		if valid_command?
-			case @toy_robot.facing
-			when "north" && direction == "left" then @toy_robot.facing = "west"
-			when "north" && direction == "right" then @toy_robot.facing = "east"
-			when "south" && direction == "left" then @toy_robot.facing = "east"
-			when "south" && direction == "right" then @toy_robot.facing = "west"
-			when "east" && direction == "left" then @toy_robot.facing = "north"
-			when "east" && direction == "right" then @toy_robot.facing = "south"
-			when "west" && direction == "left" then @toy_robot.facing = "south"
-			when "west" && direction == "right" then @toy_robot.facing = "north"
+			if (direction == "left") && (@toy_robot.facing == "north")
+				@toy_robot.facing = "west"
+				elsif (direction == "right") && (@toy_robot.facing == "north")
+					@toy_robot.facing = "east"
+				elsif (direction == "left") && (@toy_robot.facing == "south")
+					@toy_robot.facing = "east"
+				elsif (direction == "right") && (@toy_robot.facing == "south")
+					@toy_robot.facing = "west"
+				elsif (direction == "left") && (@toy_robot.facing == "east")
+					@toy_robot.facing = "north"
+				elsif (direction == "right") && (@toy_robot.facing == "east")
+					@toy_robot.facing = "south"
+				elsif (direction == "left") && (@toy_robot.facing == "west")
+					@toy_robot.facing = "south"
+				elsif (direction == "right") && (@toy_robot.facing == "west")
+					@toy_robot.facing = "north"
 			end
 		else
 			#TODO: raise error
