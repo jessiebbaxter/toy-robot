@@ -22,11 +22,11 @@ class Router
 
   def route_action(action)
     case action
-    when 1 then @controller.list
-    when 2 then @controller.create
-    when 3 then @controller.destroy
-    when 4 then @controller.destroy
-    when 5 then @controller.destroy
+    when 1 then @controller.place
+    when 2 then @controller.move
+    when 3 then @controller.rotate("left")
+    when 4 then @controller.rotate("right")
+    when 5 then @controller.report
     when 0 then stop
     else
       puts "Please press 1, 2, 3, 4, 5 or 0"
