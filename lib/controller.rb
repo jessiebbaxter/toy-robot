@@ -7,7 +7,7 @@ class Controller
 	end
 
 	def place(x,y,f)
-		if @tabletop.dimension >= x && @tabletop.dimension >= y
+		if valid_place?(x,y)
 			@toy_robot.position_x = x
 			@toy_robot.position_y = y
 			@toy_robot.facing = f
@@ -19,7 +19,7 @@ class Controller
 
 	def move
 		if valid_command?
-			if (@toy_robot.position_x < @tabletop.dimension) && (@toy_robot.position_y < @tabletop.dimension)
+			if !invalid_move?
 				case @toy_robot.facing
 				when "north" then (@toy_robot.position_y += 1)
 				when "south" then (@toy_robot.position_y -= 1)
@@ -86,4 +86,14 @@ class Controller
 		@toy_robot.on_table
 	end
 
+	def valid_place?(x,y)
+		x.between?(0,@tabletop.dimension) && y.between?(0,@tabletop.dimension)
+	end
+
+	def invalid_move?
+		((@toy_robot.position_x == @tabletop.dimension) && (@toy_robot.facing == "east")) ||
+		((@toy_robot.position_x == 0) && (@toy_robot.facing == "west")) ||
+		((@toy_robot.position_y == @tabletop.dimension) && (@toy_robot.facing == "north")) ||
+		(@toy_robot.position_y == 0) && (@toy_robot.facing == "south")
+	end
 end
