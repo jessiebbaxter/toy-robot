@@ -30,7 +30,7 @@
 And you're ready to go!
 
 ### Running the app:
-```ruby app.rb```
+```ruby lib/app.rb```
 
 ### Running the tests:
 ```rake```

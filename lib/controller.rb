@@ -1,5 +1,4 @@
 require_relative 'view'
-require 'pry'
 
 class Controller
 	def initialize(toy_robot, tabletop)
