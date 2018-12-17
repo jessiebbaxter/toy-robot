@@ -1,5 +1,3 @@
-# Role is to dispatch user intent to the right method in the 
-# right controller
 class Router
   def initialize(controller)
     @controller = controller
@@ -28,9 +26,10 @@ class Router
     when 3 then @controller.rotate("left")
     when 4 then @controller.rotate("right")
     when 5 then @controller.report
-    when 0 then stop
+    when 6 then stop
     else
-      puts "Please enter 1, 2, 3, 4, 5 or 0"
+      puts "Please enter 1-6"
+      puts ""
     end
   end
 
@@ -45,7 +44,7 @@ class Router
     puts "3 - LEFT"
     puts "4 - RIGHT"
     puts "5 - REPORT"
-    puts "0 - EXIT"
+    puts "6 - EXIT"
     puts ""
   end
 end

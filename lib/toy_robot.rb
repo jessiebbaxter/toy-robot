@@ -1,5 +1,3 @@
-# Models role is to store the data of one instance
-
 class ToyRobot
 	attr_accessor :position_x, :position_y, :facing, :on_table
 

@@ -1,6 +1,8 @@
 class Tabletop
+	attr_reader :dimension
+
 	def initialize(attributes = {})
-		@dimension = attributes[:dimension]
+		@dimension = attributes[:dimension] || 5
 		#square tabletop
 	end
 end
