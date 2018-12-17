@@ -1,9 +1,11 @@
 require_relative 'view'
 
 class Controller
+
 	def initialize(toy_robot, tabletop)
 		@toy_robot = toy_robot
 		@tabletop = tabletop
+		@directions = %w(NORTH EAST SOUTH WEST).freeze
 	end
 
 	# Puts the robot at the given position, if position is valid.
@@ -49,37 +51,31 @@ class Controller
   #      |
   #      |
   #      S
+
 	def rotate(direction)
 		if @toy_robot.on_table
-			if (direction == 'left') && (@toy_robot.direction == 'NORTH')
-				@toy_robot.direction = 'WEST'
-			elsif (direction == 'right') && (@toy_robot.direction == 'NORTH')
-				@toy_robot.direction = 'EAST'
-			elsif (direction == 'left') && (@toy_robot.direction == 'SOUTH')
-				@toy_robot.direction = 'EAST'
-			elsif (direction == 'right') && (@toy_robot.direction == 'SOUTH')
-				@toy_robot.direction = 'WEST'
-			elsif (direction == 'left') && (@toy_robot.direction == 'EAST')
-				@toy_robot.direction = 'NORTH'
-			elsif (direction == 'right') && (@toy_robot.direction == 'EAST')
-				@toy_robot.direction = 'SOUTH'
-			elsif (direction == 'left') && (@toy_robot.direction == 'WEST')
-				@toy_robot.direction = 'SOUTH'
-			elsif (direction == 'right') && (@toy_robot.direction == 'WEST')
-				@toy_robot.direction = 'NORTH'
+			case direction
+			when 'left'
+				@toy_robot.direction = calculate_new_direction(-1)
+			when 'right'
+				@toy_robot.direction = calculate_new_direction(1)
 			end
 		else
 			View.new.error("You need to first PLACE")
 		end
 	end
 
-	# Reports the robots current position to the view
+	# Reports the robots current position
 	def report
 		toy_robot = @toy_robot
 		View.new.display(toy_robot)
 	end
 
 	private
+
+	def calculate_new_direction(shift)
+		@directions[(@directions.index(@toy_robot.direction) + shift) % 4]
+	end
 
 	# Validates if place is valid
 	# Coordinates x and y can't be negative and can't be larger than table size
