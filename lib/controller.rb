@@ -6,8 +6,10 @@ class Controller
 		@tabletop = tabletop
 	end
 
-	def place_details
-	response = View.new.ask_for_place_details
+	# Gets position of place command and validates input.
+	# If invalid, error given.
+	def place_position
+	response = View.new.ask_for_position_details
 		x = response.split(",")[0]
 		y = response.split(",")[1]
 		f = response.split(",")[2]
@@ -15,10 +17,12 @@ class Controller
 		if is_integer?(x) && is_integer?(y) && valid_directions.include?(f.downcase)
 			place(x.to_i,y.to_i,f.downcase)
 		else
-			View.new.error("Oops, '#{response}' is an invalid place command")
+			View.new.error("'#{response}' is an invalid place command")
 		end
 	end
 
+	# Puts the robot at the given position, if position is valid.
+  # If the position is not valid, error given.
 	def place(x,y,f)
 		if valid_place?(x,y)
 			@toy_robot.position_x = x
@@ -26,10 +30,13 @@ class Controller
 			@toy_robot.facing = f
 			@toy_robot.on_table = true
 		else
-			View.new.error("Oops, that PLACE is invalid")
+			View.new.error("That PLACE is invalid")
 		end
 	end
 
+	# Attempts to move the robot 1 unit forward. 
+	# If the command and move is valid, the robots position is updated.
+	# If the command and move are invalid, errors are given.
 	def move
 		if valid_command?
 			if valid_move?
@@ -40,13 +47,15 @@ class Controller
 				when "west" then (@toy_robot.position_x -= 1)
 				end
 			else
-				View.new.error("Oops, that MOVE is invalid")
+				View.new.error("That MOVE is invalid")
 			end
 		else
-			View.new.error("Oops, you need to first PLACE")
+			View.new.error("You need to first PLACE")
 		end
 	end
 
+	# Rotates the robot to the left or right.
+  # Position coordinates stay the same, direction changes.
 	def rotate(direction)
 		if valid_command?
 			if (direction == "left") && (@toy_robot.facing == "north")
@@ -67,10 +76,11 @@ class Controller
 					@toy_robot.facing = "north"
 			end
 		else
-			View.new.error("Oops, you need to first PLACE")
+			View.new.error("You need to first PLACE")
 		end
 	end
 
+	# Reports the robots current position to the view
 	def report
 		toy_robot = @toy_robot
 		View.new.display(toy_robot)
@@ -78,22 +88,31 @@ class Controller
 
 	private
 
+	# Validates if input is an integer
 	def is_integer?(int)
 		int.to_i.to_s == int
 	end
 
+	# Validates if command is valid
+	# PLACE must be the first command executed
 	def valid_command?
 		@toy_robot.on_table
 	end
 
+	# Validates if place is valid
+	# Coordinates x and y can't be negative and can't be larger than table size
 	def valid_place?(x,y)
-		x.between?(0, @tabletop.dimension) && y.between?(0, @tabletop.dimension)
+		x.between?(0, @tabletop.dimension) && 
+		y.between?(0, @tabletop.dimension)
 	end
 
+	# Validates if move is valid
+	# Move can not result in coordinates x and y being negative or larger than table size
 	def valid_move?
-		!(((@toy_robot.position_x == @tabletop.dimension) && (@toy_robot.facing == "east")) ||
-		((@toy_robot.position_x == 0) && (@toy_robot.facing == "west")) ||
-		((@toy_robot.position_y == @tabletop.dimension) && (@toy_robot.facing == "north")) ||
-		(@toy_robot.position_y == 0) && (@toy_robot.facing == "south"))
+		invalid_position_1 = (@toy_robot.position_x == @tabletop.dimension) && (@toy_robot.facing == "east")
+		invalid_position_2 = (@toy_robot.position_x == 0) && (@toy_robot.facing == "west")
+		invalid_position_3 = (@toy_robot.position_y == @tabletop.dimension) && (@toy_robot.facing == "north")
+		invalid_position_4 = (@toy_robot.position_y == 0) && (@toy_robot.facing == "south")
+		valid_move = !(invalid_position_1 || invalid_position_2 || invalid_position_3 || invalid_position_4)
 	end
 end
