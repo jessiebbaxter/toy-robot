@@ -27,11 +27,11 @@ class Router
       match_data = action.match(pattern)
       @controller.place(match_data[:position_x].to_i, 
         match_data[:position_y].to_i, match_data[:direction])
-    when "MOVE" then @controller.move
-    when "LEFT" then @controller.rotate("left")
-    when "RIGHT" then @controller.rotate("right")
-    when "REPORT" then @controller.report
-    when "EXIT" then stop
+    when 'MOVE' then @controller.move
+    when 'LEFT' then @controller.rotate('left')
+    when 'RIGHT' then @controller.rotate('right')
+    when 'REPORT' then @controller.report
+    when 'EXIT' then stop
     else
       puts "Invalid command"
       puts ""

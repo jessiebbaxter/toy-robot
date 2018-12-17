@@ -24,13 +24,13 @@ class Controller
 	# If the command and move is valid, the robots position is updated.
 	# If the command and move are invalid, errors are given.
 	def move
-		if toy_robot.on_table
+		if @toy_robot.on_table
 			if valid_move?
 				case @toy_robot.direction
-				when "NORTH" then (@toy_robot.position_y += 1)
-				when "SOUTH" then (@toy_robot.position_y -= 1)
-				when "EAST" then (@toy_robot.position_x += 1)
-				when "WEST" then (@toy_robot.position_x -= 1)
+				when 'NORTH' then (@toy_robot.position_y += 1)
+				when 'SOUTH' then (@toy_robot.position_y -= 1)
+				when 'EAST' then (@toy_robot.position_x += 1)
+				when 'WEST' then (@toy_robot.position_x -= 1)
 				end
 			else
 				View.new.error("That MOVE is invalid")
@@ -42,24 +42,32 @@ class Controller
 
 	# Rotates the robot to the left or right.
   # Position coordinates stay the same, direction changes.
+  # The four main cardinal directions are: North, East, South and West
+  #      N
+  #      |
+  #      |
+  # W----+-----E
+  #      |
+  #      |
+  #      S
 	def rotate(direction)
-		if toy_robot.on_table
-			if (direction == "left") && (@toy_robot.direction == "NORTH")
-				@toy_robot.direction = "WEST"
-			elsif (direction == "right") && (@toy_robot.direction == "NORTH")
-				@toy_robot.direction = "EAST"
-			elsif (direction == "left") && (@toy_robot.direction == "SOUTH")
-				@toy_robot.direction = "EAST"
-			elsif (direction == "right") && (@toy_robot.direction == "SOUTH")
-				@toy_robot.direction = "WEST"
-			elsif (direction == "left") && (@toy_robot.direction == "EAST")
-				@toy_robot.direction = "NORTH"
-			elsif (direction == "right") && (@toy_robot.direction == "EAST")
-				@toy_robot.direction = "SOUTH"
-			elsif (direction == "left") && (@toy_robot.direction == "WEST")
-				@toy_robot.direction = "SOUTH"
-			elsif (direction == "right") && (@toy_robot.direction == "WEST")
-				@toy_robot.direction = "NORTH"
+		if @toy_robot.on_table
+			if (direction == 'left') && (@toy_robot.direction == 'NORTH')
+				@toy_robot.direction = 'WEST'
+			elsif (direction == 'right') && (@toy_robot.direction == 'NORTH')
+				@toy_robot.direction = 'EAST'
+			elsif (direction == 'left') && (@toy_robot.direction == 'SOUTH')
+				@toy_robot.direction = 'EAST'
+			elsif (direction == 'right') && (@toy_robot.direction == 'SOUTH')
+				@toy_robot.direction = 'WEST'
+			elsif (direction == 'left') && (@toy_robot.direction == 'EAST')
+				@toy_robot.direction = 'NORTH'
+			elsif (direction == 'right') && (@toy_robot.direction == 'EAST')
+				@toy_robot.direction = 'SOUTH'
+			elsif (direction == 'left') && (@toy_robot.direction == 'WEST')
+				@toy_robot.direction = 'SOUTH'
+			elsif (direction == 'right') && (@toy_robot.direction == 'WEST')
+				@toy_robot.direction = 'NORTH'
 			end
 		else
 			View.new.error("You need to first PLACE")
@@ -84,10 +92,10 @@ class Controller
 	# Validates if move is valid
 	# Move can not result in coordinates x and y being negative or larger than table size
 	def valid_move?
-		invalid_position_1 = (@toy_robot.position_x == @tabletop.dimension) && (@toy_robot.direction == "EAST")
-		invalid_position_2 = (@toy_robot.position_x == 0) && (@toy_robot.direction == "WEST")
-		invalid_position_3 = (@toy_robot.position_y == @tabletop.dimension) && (@toy_robot.direction == "NORTH")
-		invalid_position_4 = (@toy_robot.position_y == 0) && (@toy_robot.direction == "SOUTH")
+		invalid_position_1 = (@toy_robot.position_x == @tabletop.dimension) && (@toy_robot.direction == 'EAST')
+		invalid_position_2 = (@toy_robot.position_x == 0) && (@toy_robot.direction == 'WEST')
+		invalid_position_3 = (@toy_robot.position_y == @tabletop.dimension) && (@toy_robot.direction == 'NORTH')
+		invalid_position_4 = (@toy_robot.position_y == 0) && (@toy_robot.direction == 'SOUTH')
 		valid_move = !(invalid_position_1 || invalid_position_2 || invalid_position_3 || invalid_position_4)
 	end
 end
