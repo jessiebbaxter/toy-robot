@@ -1,5 +1,3 @@
-require 'pry'
-
 class Router
   def initialize(controller)
     @controller = controller
