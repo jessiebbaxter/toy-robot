@@ -7,7 +7,7 @@ class Controller
 	end
 
 	def place_details
-		response = View.new.ask_for_place_details
+	response = View.new.ask_for_place_details
 		x = response.split(",")[0]
 		y = response.split(",")[1]
 		f = response.split(",")[2]
