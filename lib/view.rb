@@ -5,7 +5,7 @@ class View
 			puts ""
 		else
 			puts "Your current position is:" 
-			puts "#{toy_robot.position_x},#{toy_robot.position_y},#{toy_robot.facing}"
+			puts "#{toy_robot.position_x},#{toy_robot.position_y},#{toy_robot.direction}"
 			puts ""
 		end
 	end

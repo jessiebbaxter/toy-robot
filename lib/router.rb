@@ -1,3 +1,5 @@
+require 'pry'
+
 class Router
   def initialize(controller)
     @controller = controller
@@ -9,7 +11,7 @@ class Router
     puts "           ----           "
     puts ""
     while @running
-      puts "input command (EXIT to quit): "
+      puts "Please input your command (EXIT to quit): "
       print "> "
       action = gets.chomp
       print `clear`
@@ -19,16 +21,21 @@ class Router
 
   private
 
+  # Routes user input to appropriate method in the controller
   def route_action(action)
     case action
-    when 1 then @controller.place_position
-    when 2 then @controller.move
-    when 3 then @controller.rotate("left")
-    when 4 then @controller.rotate("right")
-    when 5 then @controller.report
-    when 6 then stop
+    when pattern = /PLACE\s(?<position_x>\d+),(?<position_y>\d+),(?<direction>NORTH|SOUTH|EAST|WEST)/ 
+      then 
+      match_data = action.match(pattern)
+      @controller.place(match_data[:position_x].to_i, 
+        match_data[:position_y].to_i, match_data[:direction])
+    when "MOVE" then @controller.move
+    when "LEFT" then @controller.rotate("left")
+    when "RIGHT" then @controller.rotate("right")
+    when "REPORT" then @controller.report
+    when "EXIT" then stop
     else
-      puts "Please enter 1-6"
+      puts "Invalid command"
       puts ""
     end
   end
@@ -37,14 +44,4 @@ class Router
     @running = false
   end
 
-  # def display_commands
-  #   puts "What would you like to do next?"
-  #   puts "1 - PLACE"
-  #   puts "2 - MOVE"
-  #   puts "3 - LEFT"
-  #   puts "4 - RIGHT"
-  #   puts "5 - REPORT"
-  #   puts "6 - EXIT"
-  #   puts ""
-  # end
 end
