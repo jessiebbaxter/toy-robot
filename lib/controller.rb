@@ -6,6 +6,19 @@ class Controller
 		@tabletop = tabletop
 	end
 
+	def place_details
+		response = View.new.ask_for_place_details
+		x = response.split(",")[0]
+		y = response.split(",")[1]
+		f = response.split(",")[2]
+		valid_directions = %w(north east south west)
+		if is_integer?(x) && is_integer?(y) && valid_directions.include?(f.downcase)
+			place(x.to_i,y.to_i,f.downcase)
+		else
+			View.new.error("Oops, '#{response}' is an invalid place command")
+		end
+	end
+
 	def place(x,y,f)
 		if valid_place?(x,y)
 			@toy_robot.position_x = x
@@ -19,7 +32,7 @@ class Controller
 
 	def move
 		if valid_command?
-			if !invalid_move?
+			if valid_move?
 				case @toy_robot.facing
 				when "north" then (@toy_robot.position_y += 1)
 				when "south" then (@toy_robot.position_y -= 1)
@@ -63,19 +76,6 @@ class Controller
 		View.new.display(toy_robot)
 	end
 
-	def place_details
-		response = View.new.ask_for_place_details
-		x = response.split(",")[0]
-		y = response.split(",")[1]
-		f = response.split(",")[2]
-		valid_directions = %w(north east south west)
-		if is_integer?(x) && is_integer?(y) && valid_directions.include?(f.downcase)
-			place(x.to_i,y.to_i,f)
-		else
-			View.new.error("Oops, '#{response}' is an invalid place command")
-		end
-	end
-
 	private
 
 	def is_integer?(int)
@@ -87,13 +87,13 @@ class Controller
 	end
 
 	def valid_place?(x,y)
-		x.between?(0,@tabletop.dimension) && y.between?(0,@tabletop.dimension)
+		x.between?(0, @tabletop.dimension) && y.between?(0, @tabletop.dimension)
 	end
 
-	def invalid_move?
-		((@toy_robot.position_x == @tabletop.dimension) && (@toy_robot.facing == "east")) ||
+	def valid_move?
+		!(((@toy_robot.position_x == @tabletop.dimension) && (@toy_robot.facing == "east")) ||
 		((@toy_robot.position_x == 0) && (@toy_robot.facing == "west")) ||
 		((@toy_robot.position_y == @tabletop.dimension) && (@toy_robot.facing == "north")) ||
-		(@toy_robot.position_y == 0) && (@toy_robot.facing == "south")
+		(@toy_robot.position_y == 0) && (@toy_robot.facing == "south"))
 	end
 end

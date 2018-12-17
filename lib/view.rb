@@ -1,8 +1,13 @@
 class View
 	def display(toy_robot)
-		puts "Your current position is:" 
-		puts "#{toy_robot.position_x},#{toy_robot.position_y},#{toy_robot.facing.upcase}"
-		puts ""
+		if toy_robot.on_table == false
+			puts "Your robot has not been PLACED"
+			puts ""
+		else
+			puts "Your current position is:" 
+			puts "#{toy_robot.position_x},#{toy_robot.position_y},#{toy_robot.facing}"
+			puts ""
+		end
 	end
 
 	def ask_for_place_details
