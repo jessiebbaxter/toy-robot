@@ -9,9 +9,9 @@ class Router
     puts "           ----           "
     puts ""
     while @running
-      display_commands
+      puts "input command (EXIT to quit): "
       print "> "
-      action = gets.chomp.to_i
+      action = gets.chomp
       print `clear`
       route_action(action)
     end
@@ -37,14 +37,14 @@ class Router
     @running = false
   end
 
-  def display_commands
-    puts "What would you like to do next?"
-    puts "1 - PLACE"
-    puts "2 - MOVE"
-    puts "3 - LEFT"
-    puts "4 - RIGHT"
-    puts "5 - REPORT"
-    puts "6 - EXIT"
-    puts ""
-  end
+  # def display_commands
+  #   puts "What would you like to do next?"
+  #   puts "1 - PLACE"
+  #   puts "2 - MOVE"
+  #   puts "3 - LEFT"
+  #   puts "4 - RIGHT"
+  #   puts "5 - REPORT"
+  #   puts "6 - EXIT"
+  #   puts ""
+  # end
 end

@@ -3,6 +3,6 @@ class Tabletop
 
 	def initialize(attributes = {})
 		#square tabletop
-		@dimension = attributes[:dimension] || 5
+		@dimension = attributes[:dimension]
 	end
 end
