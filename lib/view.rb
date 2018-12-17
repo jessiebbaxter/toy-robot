@@ -10,12 +10,6 @@ class View
 		end
 	end
 
-	def ask_for_position_details
-		puts "What position and direction? For example, '0,1,NORTH'"
-		print "> "
-		response = gets.chomp
-	end
-
 	def error(error_message)
 		puts "#{error_message}"
 		puts ""

@@ -7,21 +7,6 @@ class Controller
 		@tabletop = tabletop
 	end
 
-	# # Gets position of place command and validates input.
-	# # If invalid, error given.
-	# def place_position
-	# response = View.new.ask_for_position_details
-	# 	x = response.split(",")[0]
-	# 	y = response.split(",")[1]
-	# 	f = response.split(",")[2]
-	# 	valid_directions = %w(north east south west)
-	# 	if is_integer?(x) && is_integer?(y) && valid_directions.include?(f.downcase)
-	# 		place(x.to_i,y.to_i,f.downcase)
-	# 	else
-	# 		View.new.error("'#{response}' is an invalid place command")
-	# 	end
-	# end
-
 	# Puts the robot at the given position, if position is valid.
   # If the position is not valid, error given.
 	def place(x,y,d)
@@ -39,7 +24,7 @@ class Controller
 	# If the command and move is valid, the robots position is updated.
 	# If the command and move are invalid, errors are given.
 	def move
-		if valid_command?
+		if toy_robot.on_table
 			if valid_move?
 				case @toy_robot.direction
 				when "NORTH" then (@toy_robot.position_y += 1)
@@ -58,23 +43,23 @@ class Controller
 	# Rotates the robot to the left or right.
   # Position coordinates stay the same, direction changes.
 	def rotate(direction)
-		if valid_command?
+		if toy_robot.on_table
 			if (direction == "left") && (@toy_robot.direction == "NORTH")
 				@toy_robot.direction = "WEST"
-				elsif (direction == "right") && (@toy_robot.direction == "NORTH")
-					@toy_robot.direction = "EAST"
-				elsif (direction == "left") && (@toy_robot.direction == "SOUTH")
-					@toy_robot.direction = "EAST"
-				elsif (direction == "right") && (@toy_robot.direction == "SOUTH")
-					@toy_robot.direction = "WEST"
-				elsif (direction == "left") && (@toy_robot.direction == "EAST")
-					@toy_robot.direction = "NORTH"
-				elsif (direction == "right") && (@toy_robot.direction == "EAST")
-					@toy_robot.direction = "SOUTH"
-				elsif (direction == "left") && (@toy_robot.direction == "WEST")
-					@toy_robot.direction = "SOUTH"
-				elsif (direction == "right") && (@toy_robot.direction == "WEST")
-					@toy_robot.direction = "NORTH"
+			elsif (direction == "right") && (@toy_robot.direction == "NORTH")
+				@toy_robot.direction = "EAST"
+			elsif (direction == "left") && (@toy_robot.direction == "SOUTH")
+				@toy_robot.direction = "EAST"
+			elsif (direction == "right") && (@toy_robot.direction == "SOUTH")
+				@toy_robot.direction = "WEST"
+			elsif (direction == "left") && (@toy_robot.direction == "EAST")
+				@toy_robot.direction = "NORTH"
+			elsif (direction == "right") && (@toy_robot.direction == "EAST")
+				@toy_robot.direction = "SOUTH"
+			elsif (direction == "left") && (@toy_robot.direction == "WEST")
+				@toy_robot.direction = "SOUTH"
+			elsif (direction == "right") && (@toy_robot.direction == "WEST")
+				@toy_robot.direction = "NORTH"
 			end
 		else
 			View.new.error("You need to first PLACE")
@@ -88,17 +73,6 @@ class Controller
 	end
 
 	private
-
-	# Validates if input is an integer
-	def is_integer?(int)
-		int.to_i.to_s == int
-	end
-
-	# Validates if command is valid
-	# PLACE must be the first command executed
-	def valid_command?
-		@toy_robot.on_table
-	end
 
 	# Validates if place is valid
 	# Coordinates x and y can't be negative and can't be larger than table size

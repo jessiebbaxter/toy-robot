@@ -19,8 +19,6 @@ class Router
     end
   end
 
-  private
-
   # Routes user input to appropriate method in the controller
   def route_action(action)
     case action
