@@ -5,7 +5,8 @@
 * [Setup](./README.md#setup)
 * [Running the app](./README.md#running-the-app)
 * [Running the tests](./README.md#running-the-tests)
-* [Examples of use](./test_data/test_data.txt)
+* [Examples of use](./test_data/test_scenarios.txt)
+* [Design and Architecture](./README.md#design-and-architecture)
 * [Description](./README.md#description)
   * [Constraints](./README.md#constraints)
   * [Example Input and Output](./README.md#example-input-and-output)
@@ -13,7 +14,7 @@
 
 ## Setup
 
-1. Make sure you have Ruby 2.4 installed in your machine. If you need help installing Ruby, take a look at the [official installation guide](https://www.ruby-lang.org/en/documentation/installation/).
+1. Make sure you have Ruby 2.4 installed in your machine. If you need help installing Ruby, please refer to the [official installation guide](https://www.ruby-lang.org/en/documentation/installation/).
 
 2. Install the [bundler gem](http://bundler.io/) by running:
 
@@ -27,13 +28,27 @@
 
     ```bundle install```
 
-And you're ready to go!
+You are now ready to launch the app!
 
 ### Running the app:
 ```ruby lib/app.rb```
 
 ### Running the tests:
 ```rake```
+
+## Design and architecture
+
+A standard MVC pattern was employed in the design of this program with the addition of a router. The responsibilities of each are outlined below:
+
+The program uses two models - the Robot and Table.
+* The robot model is responsible for storing, updating and retrieving the position data associated with the robot instance.
+* The table model is responsible for storing and validating the constraints of the simulation. For example, the table size and whether a particular command is valid.
+
+The routers role is to dispatch user intent to the right method in the controller.
+
+The controller is responsible for co-ordinating everything needed to complete the user action.
+
+As the user enters through the router in this program, the views responsibility is restricted to displaying information back to the user. For example, the position of the robot and any error messages.
 
 ## Description
 

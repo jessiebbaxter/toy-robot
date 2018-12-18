@@ -1,0 +1,112 @@
+Below is a series of test scenarios that you can perform with the app (see the README > Setup for launch instructions).
+
+Each example assumes that the program has just been launched and no previous commands have been issued.
+
+The commands should be issued in the order provided to receive the expected result.
+
+-------------------------
+TEST 1: 
+-------------------------
+Ignores all commands until the robot has been place
+
+COMMAND LIST:
+LEFT
+RIGHT
+REPORT
+MOVE
+
+EXPECTED RESULT:
+Output will be 'You need to first place' 
+
+-------------------------
+TEST 2: 
+-------------------------
+A robot that has been placed, reports its position
+
+COMMAND LIST:
+PLACE 1,2,SOUTH
+REPORT
+
+EXPECTED RESULT:
+Output will be 'Your current position is: 1,2,SOUTH'
+
+-------------------------
+TEST 3: 
+-------------------------
+Rotes the robots direction
+
+COMMAND LIST:
+PLACE 0,0,NORTH
+LEFT
+REPORT
+
+EXPECTED RESULT:
+Output will be 'Your current position is: 0,0,WEST'  
+
+-------------------------
+TEST 4: 
+-------------------------
+Moves the robot 1 unit forward in the direction it is facing
+
+COMMAND LIST:
+PLACE 2,3,EAST
+MOVE
+REPORT
+
+EXPECTED RESULT:
+Output will be 'Your current position is: 3,3,EAST' 
+
+-------------------------
+TEST 5: 
+-------------------------
+A move that will result in the robot falling off the table, is not executed
+
+COMMAND LIST:
+PLACE 5,1,EAST
+MOVE
+
+EXPECTED RESULT:
+Output will be 'That move is invalid' 
+
+-------------------------
+TEST 6: 
+-------------------------
+A place that will result in the robot falling off the table, is not executed
+
+COMMAND LIST:
+PLACE 8,5,NORTH
+
+EXPECTED RESULT:
+Output will be 'That place is invalid' 
+
+-------------------------
+TEST 7: 
+-------------------------
+A series of commands performs as is intended
+
+COMMAND LIST: position following => is for guidance only
+PLACE 3,1,WEST
+LEFT 	=> 3,1,SOUTH
+LEFT 	=> 3,1,EAST
+MOVE 	=> 4,1,EAST
+RIGHT 	=> 4,1,SOUTH
+MOVE 	=> 4,0,SOUTH
+LEFT 	=> 4,0,EAST
+REPORT
+
+EXPECTED RESULT:
+Output will be 'Your current position is: 4,0,EAST' 
+
+-------------------------
+TEST 8: 
+-------------------------
+All other commands are ignored
+
+COMMAND LIST:
+PLACE
+FLY
+BARK
+JUMP
+
+EXPECTED RESULT:
+Output will be 'Invalid command' 

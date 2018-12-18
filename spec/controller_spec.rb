@@ -1,13 +1,13 @@
 require_relative '../lib/toy_robot'
-require_relative '../lib/tabletop'
+require_relative '../lib/table'
 require_relative '../lib/controller'
 require_relative '../lib/router'
 require_relative '../lib/view'
 
 describe Controller do
   let(:toy_robot) { ToyRobot.new }
-  let(:tabletop) { Tabletop.new(dimension: 5) }
-  let(:controller) { Controller.new(toy_robot, tabletop) }
+  let(:table) { Table.new(dimension: 5) }
+  let(:controller) { Controller.new(toy_robot, table) }
   let(:router) { Router.new(controller) }
   let(:view) { View.new }
 
@@ -17,8 +17,8 @@ describe Controller do
       expect(controller.instance_variable_get(:@toy_robot)).to be_a ToyRobot
   	end
 
-  	it 'should store the Tabletop in an instance variable' do
-      expect(controller.instance_variable_get(:@tabletop)).to be_a Tabletop
+  	it 'should store the Table in an instance variable' do
+      expect(controller.instance_variable_get(:@table)).to be_a Table
   	end
   end
 

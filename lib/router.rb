@@ -4,7 +4,7 @@ class Router
     @running = true
   end
 
-  # Displays simulator interface and retrieves user innput
+  # Displays simulator interface and retrieves user input
   def run
     puts "---------------------------------------"
     puts "Welcome to your Toy Robot Simulator! 🤖"
