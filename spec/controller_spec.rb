@@ -28,8 +28,8 @@ describe Controller do
 
       router.route_action(input)
 
-      expect(toy_robot.position_x).to eq(1)
-      expect(toy_robot.position_y).to eq(2)
+      expect(toy_robot.x_position).to eq(1)
+      expect(toy_robot.y_position).to eq(2)
       expect(toy_robot.direction).to eq('NORTH')
     end
 
@@ -38,8 +38,8 @@ describe Controller do
 
       router.route_action(input)
 
-      expect(toy_robot.position_x).to eq(nil)
-      expect(toy_robot.position_y).to eq(nil)
+      expect(toy_robot.x_position).to eq(nil)
+      expect(toy_robot.y_position).to eq(nil)
       expect(toy_robot.direction).to eq(nil)        
     end
   end
@@ -47,41 +47,41 @@ describe Controller do
   describe '#move' do
     it 'moves robot' do
       input = 'MOVE'
-      toy_robot.position_x = 2
-      toy_robot.position_y = 3
+      toy_robot.x_position = 2
+      toy_robot.y_position = 3
       toy_robot.direction = 'SOUTH'
       toy_robot.on_table = true
 
       router.route_action(input)
 
-      expect(toy_robot.position_x).to eq(2)
-      expect(toy_robot.position_y).to eq(2)
+      expect(toy_robot.x_position).to eq(2)
+      expect(toy_robot.y_position).to eq(2)
       expect(toy_robot.direction).to eq('SOUTH')  
     end
 
     it 'does not move robot if it has not been placed' do
       input = 'MOVE'
-      toy_robot.position_x = 4
-      toy_robot.position_y = 1
+      toy_robot.x_position = 4
+      toy_robot.y_position = 1
       toy_robot.direction = 'EAST'
 
       router.route_action(input)
 
-      expect(toy_robot.position_x).to eq(4)
-      expect(toy_robot.position_y).to eq(1)
+      expect(toy_robot.x_position).to eq(4)
+      expect(toy_robot.y_position).to eq(1)
       expect(toy_robot.direction).to eq('EAST')  
     end
 
     it 'does not move robot if move is invalid' do
       input = 'MOVE'
-      toy_robot.position_x = 4
-      toy_robot.position_y = 0
+      toy_robot.x_position = 4
+      toy_robot.y_position = 0
       toy_robot.direction = 'SOUTH'
 
       router.route_action(input)
 
-      expect(toy_robot.position_x).to eq(4)
-      expect(toy_robot.position_y).to eq(0)
+      expect(toy_robot.x_position).to eq(4)
+      expect(toy_robot.y_position).to eq(0)
       expect(toy_robot.direction).to eq('SOUTH')
     end
   end

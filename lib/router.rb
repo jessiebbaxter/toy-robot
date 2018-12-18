@@ -4,15 +4,17 @@ class Router
     @running = true
   end
 
+  # Displays simulator interface and retrieves user innput
   def run
-    puts "Welcome to your Toy Robot Simulator!"
-    puts "           ----           "
+    puts "---------------------------------------"
+    puts "Welcome to your Toy Robot Simulator! 🤖"
+    puts "---------------------------------------"
+    puts ""
+    puts "Please input your command (EXIT to quit): "
     puts ""
     while @running
-      puts "Please input your command (EXIT to quit): "
       print "> "
       action = gets.chomp
-      print `clear`
       route_action(action)
     end
   end

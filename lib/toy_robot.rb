@@ -1,9 +1,9 @@
 class ToyRobot
-  attr_accessor :position_x, :position_y, :direction, :on_table
+  attr_accessor :x_position, :y_position, :direction, :on_table
 
   def initialize(attributes = {})
-    @position_x = attributes[:position_x]
-    @position_y = attributes[:position_y]
+    @position_x = attributes[:x_position]
+    @position_y = attributes[:y_position]
     @direction = attributes[:direction]
     @on_table = attributes[:on_table] || false
   end
