@@ -1,5 +1,4 @@
 require_relative 'view'
-require 'pry'
 
 class Controller
   attr_reader :robot

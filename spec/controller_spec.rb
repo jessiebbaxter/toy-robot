@@ -107,12 +107,33 @@ describe Controller do
       expect(robot.direction).to eq('WEST')
     end
 
-    it 'does not rotate if move it has not been placed' do
+    it 'does not rotate if it has not been placed' do
       input = 'RIGHT'
 
       router.route_action(input)
 
       expect(robot.direction).to eq(nil)
+    end
+  end
+
+  describe '#report' do
+    it 'reports the robots position' do
+      input = 'REPORT'
+      robot.x_position = 1
+      robot.y_position = 2
+      robot.direction = 'WEST'
+      robot.on_table = true
+
+      expect { router.route_action(input)}.to output("Your current position is: 1,2,WEST\n\n").to_stdout
+    end
+
+    it 'does not report if it has not been placed' do
+      input = 'REPORT'
+      robot.x_position = 1
+      robot.y_position = 2
+      robot.direction = 'WEST'
+
+      expect { router.route_action(input)}.to output("Your robot has not been PLACED\n\n").to_stdout
     end
   end
 end
