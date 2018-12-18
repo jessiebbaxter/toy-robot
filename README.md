@@ -50,6 +50,8 @@ The controller is responsible for co-ordinating everything needed to complete th
 
 As the user enters through the router in this program, the views responsibility is restricted to displaying information back to the user. For example, the position of the robot and any error messages.
 
+As instructed, a graphical output was not provided. However, error messages were included (even though not specifically required) to improve app usability.
+
 ## Description
 
 * The application is a simulation of a toy robot moving on a square tabletop,

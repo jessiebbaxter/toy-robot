@@ -10,7 +10,7 @@ describe Robot do
 
   describe '#set_new_position' do
 
-    it 'updates the position of the robot' do
+    it 'sets a new position of the robot' do
       robot.set_new_position(3,4,'EAST')
 
       expect(robot.x_position).to eq(3)

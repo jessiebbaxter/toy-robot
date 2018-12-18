@@ -1,7 +1,7 @@
 class View
   def display_position(robot)
     if robot.on_table == false
-      puts "Your robot has not been PLACED"
+      puts "Your robot has not been placed"
     else
       puts "Your current position is: #{robot.current_position}"
     end

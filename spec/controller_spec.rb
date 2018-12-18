@@ -61,15 +61,8 @@ describe Controller do
 
     it 'does not move robot if it has not been placed' do
       input = 'MOVE'
-      robot.x_position = 4
-      robot.y_position = 1
-      robot.direction = 'EAST'
 
-      router.route_action(input)
-
-      expect(robot.x_position).to eq(4)
-      expect(robot.y_position).to eq(1)
-      expect(robot.direction).to eq('EAST')  
+      expect { router.route_action(input)}.to output("You need to first place\n\n").to_stdout
     end
 
     it 'does not move robot if move is invalid' do
@@ -107,7 +100,17 @@ describe Controller do
       expect(robot.direction).to eq('WEST')
     end
 
-    it 'does not rotate if it has not been placed' do
+    it 'rotates robot right when facing west' do
+      input = 'RIGHT'
+      robot.direction = 'WEST'
+      robot.on_table = true
+
+      router.route_action(input)
+
+      expect(robot.direction).to eq('NORTH')
+    end
+
+    it 'does not rotate robot if it has not been placed' do
       input = 'RIGHT'
 
       router.route_action(input)
@@ -133,7 +136,7 @@ describe Controller do
       robot.y_position = 2
       robot.direction = 'WEST'
 
-      expect { router.route_action(input)}.to output("Your robot has not been PLACED\n\n").to_stdout
+      expect { router.route_action(input)}.to output("Your robot has not been placed\n\n").to_stdout
     end
   end
 end

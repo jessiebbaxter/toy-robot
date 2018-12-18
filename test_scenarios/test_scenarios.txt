@@ -33,7 +33,7 @@ Output will be 'Your current position is: 1,2,SOUTH'
 -------------------------
 TEST 3: 
 -------------------------
-Rotes the robots direction
+Rotates the robots direction
 
 COMMAND LIST:
 PLACE 0,0,NORTH
