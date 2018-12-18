@@ -20,11 +20,11 @@ class Router
   # Routes user input to appropriate method in the controller
   def route_action(action)
     case action
-    when pattern = /PLACE\s(?<position_x>\d+),(?<position_y>\d+),(?<direction>NORTH|SOUTH|EAST|WEST)/ 
-      then 
+    when pattern = /PLACE\s(?<position_x>\d+),(?<position_y>\d+),(?<direction>NORTH|SOUTH|EAST|WEST)/
+      then
       match_data = action.match(pattern)
-      @controller.place(match_data[:position_x].to_i, 
-        match_data[:position_y].to_i, match_data[:direction])
+      @controller.place(match_data[:position_x].to_i,
+                        match_data[:position_y].to_i, match_data[:direction])
     when 'MOVE' then @controller.move
     when 'LEFT' then @controller.rotate('left')
     when 'RIGHT' then @controller.rotate('right')
