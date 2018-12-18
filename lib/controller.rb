@@ -1,6 +1,8 @@
 require_relative 'view'
+require 'pry'
 
 class Controller
+	attr_reader :toy_robot
 
 	def initialize(toy_robot, tabletop)
 		@toy_robot = toy_robot
@@ -10,6 +12,16 @@ class Controller
 
 	# Puts the robot at the given position, if position is valid.
   # If the position is not valid, error given.
+  # position_x is the robot's horizontal position
+	# position_y is the robot's vertical position
+	# see the chart below:
+	# Y cooordinate
+	#   ^
+	#   |
+	#   |
+	#   |
+	#   +-------> X coordinate
+	# (0,0): SOUTH WEST most corner
 	def place(x,y,d)
 		if valid_place?(x,y)
 			@toy_robot.position_x = x
@@ -27,12 +39,7 @@ class Controller
 	def move
 		if @toy_robot.on_table
 			if valid_move?
-				case @toy_robot.direction
-				when 'NORTH' then (@toy_robot.position_y += 1)
-				when 'SOUTH' then (@toy_robot.position_y -= 1)
-				when 'EAST' then (@toy_robot.position_x += 1)
-				when 'WEST' then (@toy_robot.position_x -= 1)
-				end
+				@toy_robot.update_position(@toy_robot)
 			else
 				View.new.error("That MOVE is invalid")
 			end
@@ -41,7 +48,7 @@ class Controller
 		end
 	end
 
-	# Rotates the robot to the left or right.
+	# Rotates the robot to the left (-1) or right (+1).
   # Position coordinates stay the same, direction changes.
   # The four main cardinal directions are: North, East, South and West
   #      N
@@ -51,7 +58,6 @@ class Controller
   #      |
   #      |
   #      S
-
 	def rotate(direction)
 		if @toy_robot.on_table
 			case direction
@@ -73,8 +79,8 @@ class Controller
 
 	private
 
-	def calculate_new_direction(shift)
-		@directions[(@directions.index(@toy_robot.direction) + shift) % 4]
+	def calculate_new_direction(direction_shift)
+		@directions[(@directions.index(@toy_robot.direction) + direction_shift) % 4]
 	end
 
 	# Validates if place is valid

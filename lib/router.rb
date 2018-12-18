@@ -39,5 +39,4 @@ class Router
   def stop
     @running = false
   end
-
 end
