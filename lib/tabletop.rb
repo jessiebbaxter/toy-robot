@@ -2,7 +2,8 @@ class Tabletop
   attr_reader :dimension
 
   def initialize(attributes = {})
-    # square tabletop
+    # Tabletop is square.
+    # Tabletop size: dimension x dimension
     @dimension = attributes[:dimension]
   end
 end

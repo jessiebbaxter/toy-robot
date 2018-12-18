@@ -14,7 +14,7 @@ class Controller
   # x_pos is the toy robot's horizontal position
   # y_pos is the toy robot's vertical position
   # dir is the cardinal direction the toy robot is facing
-  # Toy robot's position from diagram below: 4,1,NORTH
+  # Example of toy robot's position from diagram below: 4,1,NORTH
   # Y cooordinate
   #  5 ^
   #  4 |
@@ -24,11 +24,7 @@ class Controller
   #  0 +---------> X coordinate
   #     1 2 3 4 5
   def place(x_pos, y_pos, dir)
-    if valid_place?(x_pos, y_pos)
-      set_new_position(x_pos, y_pos, dir)
-    else
-      View.new.error("That PLACE is invalid")
-    end
+    valid_place?(x_pos, y_pos) ? set_new_position(x_pos, y_pos, dir) : View.new.error("That PLACE is invalid")
   end
 
   # Attempts to move the toy robot 1 unit forward in the direction it is facing.
@@ -57,21 +53,26 @@ class Controller
 
   private
 
-  # Validates if place is valid
+  # Checks if place is valid
   # Coordinates x and y can't be negative and can't be larger than table size
   def valid_place?(x_position, y_position)
     x_position.between?(0, @tabletop.dimension) &&
       y_position.between?(0, @tabletop.dimension)
   end
 
-  # Validates if move is valid
+  # Checks if move is valid
   # Move can not result in coordinates x and y being negative or larger than table size
+  # Example of move that would be invalid (return false): x_position = 5 && direction = 'EAST'
   def valid_move?
-    invalid_position1 = (@toy_robot.x_position == @tabletop.dimension) && (@toy_robot.direction == 'EAST')
-    invalid_position2 = @toy_robot.x_position.zero? && (@toy_robot.direction == 'WEST')
-    invalid_position3 = (@toy_robot.y_position == @tabletop.dimension) && (@toy_robot.direction == 'NORTH')
-    invalid_position4 = @toy_robot.y_position.zero? && (@toy_robot.direction == 'SOUTH')
-    !(invalid_position1 || invalid_position2 || invalid_position3 || invalid_position4)
+    x_position = @toy_robot.x_position
+    y_position = @toy_robot.x_position
+    tabletop_dimension = @tabletop.dimension
+    direction = @toy_robot.direction
+    invalid_east_move = (x_position == tabletop_dimension) && (direction == 'EAST')
+    invalid_west_move = x_position.zero? && (direction == 'WEST')
+    invalid_north_move = (y_position == tabletop_dimension) && (direction == 'NORTH')
+    invalid_south_move = y_position.zero? && (direction == 'SOUTH')
+    !(invalid_east_move || invalid_west_move || invalid_north_move || invalid_south_move)
   end
 
   # Sets new position of toy robot

@@ -10,7 +10,7 @@ class Router
     puts "Welcome to your Toy Robot Simulator! 🤖"
     puts "---------------------------------------"
     puts ""
-    puts "Please input your command (EXIT to quit): "
+    puts "Please input your command (EXIT to quit):"
     puts ""
     while @running
       print "> "

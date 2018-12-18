@@ -3,8 +3,7 @@ class View
     if toy_robot.on_table == false
       puts "Your robot has not been PLACED"
     else
-      puts "Your current position is:"
-      puts "#{toy_robot.x_position},#{toy_robot.y_position},#{toy_robot.direction}"
+      puts "Your current position is: #{toy_robot.current_position}"
     end
     puts ""
   end
