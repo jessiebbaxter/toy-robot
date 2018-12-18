@@ -1,20 +1,20 @@
-require_relative '../lib/toy_robot'
+require_relative '../lib/robot'
 require_relative '../lib/table'
 require_relative '../lib/controller'
 require_relative '../lib/router'
 require_relative '../lib/view'
 
 describe Controller do
-  let(:toy_robot) { ToyRobot.new }
+  let(:robot) { Robot.new }
   let(:table) { Table.new(dimension: 5) }
-  let(:controller) { Controller.new(toy_robot, table) }
+  let(:controller) { Controller.new(robot, table) }
   let(:router) { Router.new(controller) }
   let(:view) { View.new }
 
 	describe '#initialize' do
 	  
-    it 'should store the ToyRobot in an instance variable' do
-      expect(controller.instance_variable_get(:@toy_robot)).to be_a ToyRobot
+    it 'should store the Robot in an instance variable' do
+      expect(controller.instance_variable_get(:@robot)).to be_a Robot
   	end
 
   	it 'should store the Table in an instance variable' do
@@ -28,9 +28,9 @@ describe Controller do
 
       router.route_action(input)
 
-      expect(toy_robot.x_position).to eq(1)
-      expect(toy_robot.y_position).to eq(2)
-      expect(toy_robot.direction).to eq('NORTH')
+      expect(robot.x_position).to eq(1)
+      expect(robot.y_position).to eq(2)
+      expect(robot.direction).to eq('NORTH')
     end
 
     it 'does not place robot if place input is invalid' do
@@ -38,73 +38,73 @@ describe Controller do
 
       router.route_action(input)
 
-      expect(toy_robot.x_position).to eq(nil)
-      expect(toy_robot.y_position).to eq(nil)
-      expect(toy_robot.direction).to eq(nil)        
+      expect(robot.x_position).to eq(nil)
+      expect(robot.y_position).to eq(nil)
+      expect(robot.direction).to eq(nil)        
     end
   end
 
   describe '#move' do
     it 'moves robot' do
       input = 'MOVE'
-      toy_robot.x_position = 2
-      toy_robot.y_position = 3
-      toy_robot.direction = 'SOUTH'
-      toy_robot.on_table = true
+      robot.x_position = 2
+      robot.y_position = 3
+      robot.direction = 'SOUTH'
+      robot.on_table = true
 
       router.route_action(input)
 
-      expect(toy_robot.x_position).to eq(2)
-      expect(toy_robot.y_position).to eq(2)
-      expect(toy_robot.direction).to eq('SOUTH')  
+      expect(robot.x_position).to eq(2)
+      expect(robot.y_position).to eq(2)
+      expect(robot.direction).to eq('SOUTH')  
     end
 
     it 'does not move robot if it has not been placed' do
       input = 'MOVE'
-      toy_robot.x_position = 4
-      toy_robot.y_position = 1
-      toy_robot.direction = 'EAST'
+      robot.x_position = 4
+      robot.y_position = 1
+      robot.direction = 'EAST'
 
       router.route_action(input)
 
-      expect(toy_robot.x_position).to eq(4)
-      expect(toy_robot.y_position).to eq(1)
-      expect(toy_robot.direction).to eq('EAST')  
+      expect(robot.x_position).to eq(4)
+      expect(robot.y_position).to eq(1)
+      expect(robot.direction).to eq('EAST')  
     end
 
     it 'does not move robot if move is invalid' do
       input = 'MOVE'
-      toy_robot.x_position = 4
-      toy_robot.y_position = 0
-      toy_robot.direction = 'SOUTH'
+      robot.x_position = 4
+      robot.y_position = 0
+      robot.direction = 'SOUTH'
 
       router.route_action(input)
 
-      expect(toy_robot.x_position).to eq(4)
-      expect(toy_robot.y_position).to eq(0)
-      expect(toy_robot.direction).to eq('SOUTH')
+      expect(robot.x_position).to eq(4)
+      expect(robot.y_position).to eq(0)
+      expect(robot.direction).to eq('SOUTH')
     end
   end
 
   describe '#rotate' do
     it 'rotates robot left when facing east' do
       input = 'LEFT'
-      toy_robot.direction = 'EAST'
-      toy_robot.on_table = true
+      robot.direction = 'EAST'
+      robot.on_table = true
 
       router.route_action(input)
 
-      expect(toy_robot.direction).to eq('NORTH')
+      expect(robot.direction).to eq('NORTH')
     end
 
     it 'rotates robot right when facing south' do
       input = 'RIGHT'
-      toy_robot.direction = 'SOUTH'
-      toy_robot.on_table = true
+      robot.direction = 'SOUTH'
+      robot.on_table = true
 
       router.route_action(input)
 
-      expect(toy_robot.direction).to eq('WEST')
+      expect(robot.direction).to eq('WEST')
     end
 
     it 'does not rotate if move it has not been placed' do
@@ -112,7 +112,7 @@ describe Controller do
 
       router.route_action(input)
 
-      expect(toy_robot.direction).to eq(nil)
+      expect(robot.direction).to eq(nil)
     end
   end
 end

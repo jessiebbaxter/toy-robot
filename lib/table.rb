@@ -17,10 +17,10 @@ class Table
   # Checks if move is valid
   # Move can not result in coordinates x and y being negative or larger than table size
   # Example of move that would be invalid (return false): x_position = 5 && direction = 'EAST'
-  def valid_move?(toy_robot)
-  	x_pos = toy_robot.x_position
-  	y_pos = toy_robot.y_position
-  	dir = toy_robot.direction
+  def valid_move?(robot)
+  	x_pos = robot.x_position
+  	y_pos = robot.y_position
+  	dir = robot.direction
     invalid_east_move = (x_pos == @dimension) && (dir == 'EAST')
     invalid_west_move = x_pos.zero? && (dir == 'WEST')
     invalid_north_move = (y_pos == @dimension) && (dir == 'NORTH')

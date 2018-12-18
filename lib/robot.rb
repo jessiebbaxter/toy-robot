@@ -1,4 +1,4 @@
-class ToyRobot
+class Robot
   attr_accessor :x_position, :y_position, :direction, :on_table
 
   def initialize(attributes = {})
@@ -13,7 +13,7 @@ class ToyRobot
     "#{@x_position},#{@y_position},#{@direction}"
   end
 
-  # Sets new position of toy robot
+  # Sets new position of robot
   def set_new_position(x_pos, y_pos, dir)
     @x_position = x_pos
     @y_position = y_pos
@@ -21,7 +21,7 @@ class ToyRobot
     @on_table = true
   end
 
-  # Moves position of toy robot 1 unit forward
+  # Moves position of robot 1 unit forward
   def move_forward
     case @direction
     when 'NORTH' then (@y_position += 1)
@@ -31,7 +31,7 @@ class ToyRobot
     end
   end
 
-  # Updates direction of toy robot
+  # Updates direction of robot
   def update_direction(new_direction)
     directions = %w[NORTH EAST SOUTH WEST].freeze
     case new_direction
