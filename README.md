@@ -34,7 +34,7 @@ You are now ready to launch the app!
 ```ruby lib/app.rb```
 
 ### Running the tests:
-```rake```
+```rspec spec```
 
 ## Design and architecture
 
