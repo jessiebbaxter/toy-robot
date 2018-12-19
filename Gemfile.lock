@@ -91,6 +91,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  rake
   rspec-rails (~> 3.8)
   rubocop
 
