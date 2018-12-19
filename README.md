@@ -14,7 +14,7 @@
 
 ## Setup
 
-1. Make sure you have Ruby 2.4 installed in your machine. If you need help installing Ruby, please refer to the [official installation guide](https://www.ruby-lang.org/en/documentation/installation/).
+1. Make sure you have Ruby 2.4.4 installed in your machine. If you need help installing Ruby, please refer to the [official installation guide](https://www.ruby-lang.org/en/documentation/installation/).
 
 2. Install the [bundler gem](http://bundler.io/) by running:
 
